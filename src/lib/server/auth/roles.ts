@@ -13,10 +13,10 @@
 
 import type { UserRole } from './types.js';
 
-// ──────────────────────────────────────────────
+// =============
 // Configure these lists to assign specific roles.
 // In production, replace with database lookups.
-// ──────────────────────────────────────────────
+// =============
 
 /** Emails that get the superadmin role. */
 const SUPERADMIN_EMAILS: Set<string> = new Set([

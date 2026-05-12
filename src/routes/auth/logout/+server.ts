@@ -1,15 +1,26 @@
-import { redirect } from '@sveltejs/kit';
-import type { RequestHandler } from './$types';
-import { destroySession } from '$lib/server/auth';
+import { redirect } from "@sveltejs/kit";
+import type { RequestHandler } from "./$types";
+import { createSupabaseServerClient } from "$lib/server/supabase/server";
+import {
+  isDevAuthEnabled,
+  DEV_COOKIE_NAME,
+} from "$lib/server/auth/dev-session";
 
-export const POST: RequestHandler = async ({ cookies }) => {
-    const token = cookies.get('session_token');
+async function handleLogout(
+  cookies: Parameters<RequestHandler>[0]["cookies"],
+): Promise<never> {
+  // Clear Supabase session (no-op when there is no real session — that's fine)
+  const supabase = createSupabaseServerClient(cookies);
+  await supabase.auth.signOut();
 
-    if (token) {
-        destroySession(token);
-    }
+  // Clear dev auth cookie when the dev adapter is active
+  if (isDevAuthEnabled()) {
+    cookies.delete(DEV_COOKIE_NAME, { path: "/" });
+  }
 
-    cookies.delete('session_token', { path: '/' });
+  redirect(302, "/accounts/login");
+}
 
-    throw redirect(302, '/accounts/login');
-};
+// Accept both GET (sidebar <a> links) and POST (form submissions)
+export const GET: RequestHandler = ({ cookies }) => handleLogout(cookies);
+export const POST: RequestHandler = ({ cookies }) => handleLogout(cookies);

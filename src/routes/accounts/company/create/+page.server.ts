@@ -1,56 +1,71 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
-import { registerCompany, createSession } from '$lib/server/auth';
+import { companyRegisterSchema } from '$lib/server/validators/auth.schema';
+import { supabaseAdmin } from '$lib/server/supabase/admin';
 
 export const actions: Actions = {
-    default: async ({ request, cookies }) => {
-        const formData = await request.formData();
-        const email = formData.get('email') as string;
-        const password = formData.get('password') as string;
-        const confirmPassword = formData.get('confirmPassword') as string;
-        const acceptedTos = formData.get('acceptedTos');
+  default: async ({ request, locals }) => {
+    const formData = await request.formData();
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+    const confirmPassword = formData.get('confirmPassword') as string;
+    const acceptedTos = formData.get('acceptedTos');
 
-        if (!email || !password || !confirmPassword) {
-            return fail(400, {
-                error: 'Please fill in all fields.',
-                email
-            });
-        }
-
-        if (password !== confirmPassword) {
-            return fail(400, {
-                error: 'Passwords do not match.',
-                email
-            });
-        }
-
-        if (!acceptedTos) {
-            return fail(400, {
-                error: 'Please accept the Terms & Conditions.',
-                email
-            });
-        }
-
-        const result = registerCompany(email, password);
-
-        if (typeof result === 'string') {
-            return fail(400, {
-                error: result,
-                email
-            });
-        }
-
-        // result is now a User – auto-login after registration
-        const token = createSession(result);
-
-        cookies.set('session_token', token, {
-            path: '/',
-            httpOnly: true,
-            sameSite: 'lax',
-            secure: false, // set true in production
-            maxAge: 60 * 60 * 24 * 7
-        });
-
-        throw redirect(302, '/dashboard');
+    if (!acceptedTos) {
+      return fail(400, {
+        error: 'Please accept the Terms & Conditions.',
+        email
+      });
     }
+
+    const result = companyRegisterSchema.safeParse({
+      email,
+      password,
+      confirmPassword
+    });
+
+    if (!result.success) {
+      const fieldErrors = result.error.issues.reduce((acc, issue) => {
+        const key = String(issue.path[0]);
+        acc[key] = issue.message;
+        return acc;
+      }, {} as Record<string, string>);
+
+      return fail(400, {
+        error: Object.values(fieldErrors)[0],
+        email
+      });
+    }
+
+    const { data: signUpData, error: signUpError } = await supabaseAdmin.auth.admin.createUser({
+      email,
+      password,
+      email_confirm: true,
+      user_metadata: {
+        role: 'company',
+        full_name: email.split('@')[0]
+      }
+    });
+
+    if (signUpError) {
+      return fail(400, {
+        error: signUpError.message,
+        email
+      });
+    }
+
+    const { error: loginError } = await locals.supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (loginError) {
+      return fail(400, {
+        error: 'Account created but auto-login failed. Please log in manually.',
+        email
+      });
+    }
+
+    throw redirect(302, '/company/dashboard');
+  }
 };

@@ -4,6 +4,6 @@ import { defineConfig } from 'vite';
 export default defineConfig({
     plugins: [sveltekit()],
     ssr: {
-        noExternal: ['svelte-fa', 'svelte-toggles']
+        noExternal: ['svelte-fa', 'svelte-toggles', 'svelte-sonner']
     }
 });

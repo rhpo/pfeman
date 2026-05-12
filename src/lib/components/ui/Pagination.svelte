@@ -142,10 +142,10 @@
 		justify-content: space-between;
 		gap: 4px;
 		padding: 8px;
-		background: var(--background-secondary);
+		background: var(--color-surface);
 		border-radius: 50px;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-		border: 1px solid var(--border);
+		box-shadow: var(--shadow-sm);
+		border: 1px solid var(--color-border);
 		width: 100%;
 	}
 
@@ -160,7 +160,7 @@
 		border-radius: 50px;
 		font-size: 14px;
 		font-weight: 500;
-		color: var(--text-primary);
+		color: var(--color-text);
 		cursor: pointer;
 		transition: all 0.2s ease;
 		user-select: none;
@@ -168,8 +168,8 @@
 	}
 
 	.pagination-btn:hover:not(.disabled):not(.active) {
-		background: #f3f4f6;
-		color: #374151;
+		background: var(--color-background-100);
+		color: var(--color-text);
 	}
 
 	.pagination-btn:active:not(.disabled) {
@@ -177,13 +177,13 @@
 	}
 
 	.pagination-btn.active {
-		background: var(--primary);
-		color: white;
+		background: var(--color-accent);
+		color: #fff;
 		font-weight: 600;
 	}
 
 	.pagination-btn.disabled {
-		color: #d1d5db;
+		color: var(--color-text-disabled);
 		cursor: not-allowed;
 	}
 
@@ -206,7 +206,7 @@
 		justify-content: center;
 		min-width: 32px;
 		height: 32px;
-		color: #9ca3af;
+		color: var(--color-text-muted);
 		font-weight: 500;
 		user-select: none;
 	}
@@ -270,7 +270,7 @@
 
 	/* Focus styles for accessibility */
 	.pagination-btn:focus-visible {
-		outline: 2px solid var(--primary);
+		outline: 2px solid var(--color-accent);
 		outline-offset: 2px;
 	}
 

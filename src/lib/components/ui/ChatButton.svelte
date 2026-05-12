@@ -56,19 +56,19 @@
 
 <style>
 	.chat-toggle {
-		color: var(--text-primary);
+		color: var(--color-text);
 		position: fixed;
 		right: 2rem;
 		bottom: 2rem;
 		z-index: 999999999;
-		background: var(--background-secondary);
-		border: 2px solid var(--border);
+		background: var(--color-surface);
+		border: 2px solid var(--color-border);
 		border-radius: 50px;
 		height: 50px;
 		padding: 0.75rem;
 		cursor: pointer;
 		transition: all var(--transition-normal);
-		box-shadow: 0 4px 12px rgba(var(--shadow-color-rgb), 0.1);
+		box-shadow: var(--shadow-sm);
 
 		display: flex;
 		justify-content: center;
@@ -78,13 +78,13 @@
 	}
 
 	.chat-toggle.open {
-		background: var(--primary);
-		color: var(--white);
+		background: var(--color-accent);
+		color: #fff;
 		transform: translateY(15px);
 	}
 
 	.chat-toggle:hover {
-		box-shadow: 0 8px 24px rgba(var(--shadow-color-rgb), 0.15);
+		box-shadow: var(--shadow-md);
 	}
 
 	.chat-toggle:not(.open):hover {

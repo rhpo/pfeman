@@ -1,10 +1,10 @@
-/* ============================================================
+/* =============
    reset.css
    Removes browser defaults. No design decisions here —
    those live in semantic.css and component files.
-   ============================================================ */
+   ============= */
 
-/* ── Margins & padding ── */
+/* == Margins & padding == */
 
 html,
 body {
@@ -19,7 +19,7 @@ body {
     padding: 0;
 }
 
-/* ── Typography ── */
+/* == Typography == */
 
 h1,
 h2,
@@ -31,14 +31,14 @@ h6 {
     font-weight: inherit;
 }
 
-/* ── Lists ── */
+/* == Lists == */
 
 ul,
 ol {
     list-style: none;
 }
 
-/* ── Media ── */
+/* == Media == */
 
 img,
 video,
@@ -49,7 +49,7 @@ picture {
     max-width: 100%;
 }
 
-/* ── Forms ── */
+/* == Forms == */
 
 input,
 button,
@@ -86,14 +86,14 @@ textarea {
     resize: vertical;
 }
 
-/* ── Tables ── */
+/* == Tables == */
 
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
 
-/* ── Misc ── */
+/* == Misc == */
 
 a {
     color: inherit;

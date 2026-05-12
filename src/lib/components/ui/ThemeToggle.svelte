@@ -29,20 +29,12 @@
   .theme-toggle {
     color: inherit;
 
-    /* position: fixed;
-    left: 2rem;
-    bottom: 2rem; */
-
     z-index: 1000;
-    background: var(--background-secondary);
-    border: 1px solid var(--border);
     border-radius: 50px;
     width: 50px;
     height: 50px;
-    padding: 0.75rem;
     cursor: pointer;
     transition: all var(--transition-normal);
-    box-shadow: 0 4px 12px rgba(var(--shadow-color-rgb), 0.1);
 
     display: flex;
     justify-content: center;
@@ -50,7 +42,6 @@
 
     &:hover {
       transform: scale(1.1);
-      box-shadow: 0 8px 24px rgba(var(--shadow-color-rgb), 0.15);
     }
 
     &:active {

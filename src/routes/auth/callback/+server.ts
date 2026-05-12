@@ -1,76 +1,100 @@
 import { redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
-import { createSession, resolveGoogleUserRole } from '$lib/server/auth';
-import type { GoogleProfile, User } from '$lib/server/auth/types';
+import { createSupabaseServerClient } from '$lib/server/supabase/server';
+import { supabaseAdmin } from '$lib/server/supabase/admin';
+import { BRAND } from '$lib/constants/branding';
+import type { Database } from '$lib/types/database';
+
+const ROLE_DASHBOARDS: Record<string, string> = {
+  student: '/student/dashboard',
+  teacher: '/teacher/dashboard',
+  admin: '/admin/dashboard',
+  company: '/company/dashboard',
+};
 
 export const GET: RequestHandler = async ({ url, cookies }) => {
-    const code = url.searchParams.get('code');
+  const code = url.searchParams.get('code');
+  const error_description = url.searchParams.get('error_description');
 
-    if (!code) {
-        return new Response('No code provided', { status: 400 });
-    }
+  if (error_description) {
+    throw redirect(302, `/accounts/login?error=${encodeURIComponent(error_description)}`);
+  }
 
-    // 1. Exchange authorisation code → access token
-    const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: new URLSearchParams({
-            code,
-            client_id: GOOGLE_CLIENT_ID!,
-            client_secret: GOOGLE_CLIENT_SECRET!,
-            redirect_uri: 'http://localhost:5173/auth/callback',
-            grant_type: 'authorization_code'
-        })
-    });
+  if (!code) {
+    throw redirect(302, '/accounts/login?error=no_auth_code');
+  }
 
-    const tokenData = await tokenRes.json();
+  const supabase = createSupabaseServerClient(cookies);
+  const { data: { session }, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
 
-    if (!tokenData.access_token) {
-        console.error('Token exchange failed:', tokenData);
-        return new Response('Authentication failed', { status: 401 });
-    }
+  if (exchangeError || !session) {
+    throw redirect(302, `/accounts/login?error=${encodeURIComponent(exchangeError?.message ?? 'Auth failed')}`);
+  }
 
-    // 2. Fetch Google profile
-    const userRes = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
-        headers: {
-            Authorization: `Bearer ${tokenData.access_token}`
-        }
-    });
+  const email = session.user.email ?? '';
+  const userId = session.user.id;
 
-    const profile: GoogleProfile = await userRes.json();
+  // 1. Strict Domain Enforcement
+  if (!email.endsWith(`@${BRAND.university.domain}`)) {
+    await supabase.auth.signOut();
+    await supabaseAdmin.auth.admin.deleteUser(userId);
+    throw redirect(302, '/accounts/login?error=invalid_domain');
+  }
 
-    if (!profile.email) {
-        return new Response('Could not retrieve email from Google', { status: 401 });
-    }
+  // 2. Data Lookup (Whitelists)
+  const [{ data: teacherRecord }, { data: studentRecord }, { data: existingProfile }] = await Promise.all([
+    supabaseAdmin.from('teachers').select('id, profile_id').eq('email', email).single(),
+    supabaseAdmin.from('students').select('id, profile_id').eq('email', email).single(),
+    supabaseAdmin.from('profiles').select('role').eq('id', userId).single()
+  ]);
 
-    // 3. Resolve role from email
-    const role = resolveGoogleUserRole(profile.email);
+  // 3. Role Determination Logic
+  let finalRole: string | null = null;
 
-    // 4. Build canonical user
-    const user: User = {
-        id: profile.id,
-        email: profile.email,
-        name: profile.name,
-        picture: profile.picture,
-        role,
-        provider: 'google',
-        createdAt: Date.now()
-    };
+  // Rule 1: Static Admin check (if they are already marked as admin in profiles)
+  if (existingProfile?.role === "admin") {
+    finalRole = "admin";
+  }
+  // Rule 2: If found in teacher whitelist, they are a teacher (or an admin who is also a teacher)
+  else if (teacherRecord) {
+    finalRole = "teacher";
+  }
+  // Rule 3: If found on student whitelist
+  else if (studentRecord) {
+    finalRole = "student";
+  }
 
-    // 5. Create server session & set secure cookie
-    const sessionToken = createSession(user);
+  // 4. Access Denied if not found in any whitelist and not an admin
+  if (!finalRole) {
+    await supabase.auth.signOut();
+    await supabaseAdmin.auth.admin.deleteUser(userId);
+    throw redirect(302, `/accounts/login?error=access_denied&data=${JSON.stringify({ email })}`);
+  }
 
-    cookies.set('session_token', sessionToken, {
-        path: '/',
-        httpOnly: true,
-        sameSite: 'lax',
-        secure: false, // set true in production
-        maxAge: 60 * 60 * 24 * 7 // 7 days
-    });
+  // 5. Contextual Linkage (Link them to domain tables even if they are ADMIN)
+  const updates = [];
 
-    // 6. Redirect to dashboard
-    throw redirect(302, '/dashboard');
+  if (teacherRecord) {
+    // If they are in the teacher table, link their profile regardless of whether they are ADMIN or TEACHER
+    updates.push(supabaseAdmin.from('teachers').update({ profile_id: userId }).eq('email', email));
+  }
+
+  if (studentRecord && !teacherRecord) {
+    updates.push(supabaseAdmin.from('students').update({ profile_id: userId }).eq('email', email));
+  }
+
+  // Ensure profiles table role is synced with our determined role
+  updates.push(supabaseAdmin.from('profiles').upsert({
+    id: userId,
+    role: finalRole as "student" | "teacher" | "admin" | "company",
+    full_name: session.user.user_metadata?.full_name || email.split('@')[0],
+    avatar_url: session.user.user_metadata?.avatar_url ?? session.user.user_metadata?.picture
+  }));
+
+  if (updates.length > 0) {
+    await Promise.all(updates);
+  }
+
+  const destination = ROLE_DASHBOARDS[finalRole] ?? '/';
+  throw redirect(302, destination);
 };

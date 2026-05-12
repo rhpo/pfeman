@@ -1,0 +1,98 @@
+Loading svelte-check in workspace: c:\Users\ramyh\Documents\code\projs\pfe-immature-v3
+Getting Svelte diagnostics...
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\lib\components\admin\AdminSidebar.svelte[39m:23:57
+[31mError[39m: Type 'typeof LayoutDashboard' is not assignable to type 'Component<{ size?: string | number | undefined; }, {}, string>'.
+  Type 'typeof LayoutDashboard' provides no match for the signature '(this: void, internals: Brand<"ComponentInternals">, props: { size?: string | number | undefined; }): { $on?(type: string, callback: (e: any) => void): () => void; $set?(props: Partial<...>): void; }'. (ts)
+[36m    const navItems: NavItem[] = [
+        { href: "/admin/dashboard", label: "Dashboard", [35micon[36m: LayoutDashboard },
+        { href: "/admin/subjects", label: "Project List", icon: List },[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\lib\components\admin\AdminSidebar.svelte[39m:24:59
+[31mError[39m: Type 'typeof List' is not assignable to type 'Component<{ size?: string | number | undefined; }, {}, string>'.
+  Type 'typeof List' provides no match for the signature '(this: void, internals: Brand<"ComponentInternals">, props: { size?: string | number | undefined; }): { $on?(type: string, callback: (e: any) => void): () => void; $set?(props: Partial<...>): void; }'. (ts)
+[36m        { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
+        { href: "/admin/subjects", label: "Project List", [35micon[36m: List },
+        { href: "/admin/defenses", label: "Milestones", icon: Flag },[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\lib\components\admin\AdminSidebar.svelte[39m:25:57
+[31mError[39m: Type 'typeof Flag' is not assignable to type 'Component<{ size?: string | number | undefined; }, {}, string>'.
+  Type 'typeof Flag' provides no match for the signature '(this: void, internals: Brand<"ComponentInternals">, props: { size?: string | number | undefined; }): { $on?(type: string, callback: (e: any) => void): () => void; $set?(props: Partial<...>): void; }'. (ts)
+[36m        { href: "/admin/subjects", label: "Project List", icon: List },
+        { href: "/admin/defenses", label: "Milestones", [35micon[36m: Flag },
+        {[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\lib\components\admin\AdminSidebar.svelte[39m:29:13
+[31mError[39m: Type 'typeof FolderOpen' is not assignable to type 'Component<{ size?: string | number | undefined; }, {}, string>'.
+  Type 'typeof FolderOpen' provides no match for the signature '(this: void, internals: Brand<"ComponentInternals">, props: { size?: string | number | undefined; }): { $on?(type: string, callback: (e: any) => void): () => void; $set?(props: Partial<...>): void; }'. (ts)
+[36m            label: "Document Repository",
+            [35micon[36m: FolderOpen,
+        },[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\lib\components\admin\AdminSidebar.svelte[39m:34:13
+[31mError[39m: Type 'typeof MessageSquare' is not assignable to type 'Component<{ size?: string | number | undefined; }, {}, string>'.
+  Type 'typeof MessageSquare' provides no match for the signature '(this: void, internals: Brand<"ComponentInternals">, props: { size?: string | number | undefined; }): { $on?(type: string, callback: (e: any) => void): () => void; $set?(props: Partial<...>): void; }'. (ts)
+[36m            label: "Team Chat",
+            [35micon[36m: MessageSquare,
+            badge: 3,[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\lib\components\admin\AdminSidebar.svelte[39m:37:55
+[31mError[39m: Type 'typeof Settings' is not assignable to type 'Component<{ size?: string | number | undefined; }, {}, string>'.
+  Type 'typeof Settings' provides no match for the signature '(this: void, internals: Brand<"ComponentInternals">, props: { size?: string | number | undefined; }): { $on?(type: string, callback: (e: any) => void): () => void; $set?(props: Partial<...>): void; }'. (ts)
+[36m        },
+        { href: "/admin/settings", label: "Settings", [35micon[36m: Settings },
+    ];[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\lib\components\ui\Notification.svelte[39m:44:4
+[33mWarn[39m: `<svelte:component>` is deprecated in runes mode — components are dynamic by default
+https://svelte.dev/e/svelte_component_deprecated (svelte)
+[36m		<div class="notification-icon">
+			[35m<svelte:component this={icons[type]} size={18} />[36m
+		</div>[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(admin)\admin\dashboard\+page.svelte[39m:24:49
+[33mWarn[39m: This reference only captures the initial value of `data`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m
+	const { stats, activeYear, recentAuditLogs } = [35mdata[36m;[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(admin)\admin\users\+page.svelte[39m:14:66
+[33mWarn[39m: This reference only captures the initial value of `data`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m
+	const { profiles, teachers, students, companies, promotions } = [35mdata[36m;[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(admin)\admin\users\+page.svelte[39m:534:2
+[33mWarn[39m: Unused CSS selector ".search-icon"
+https://svelte.dev/e/css_unused_selector (svelte)
+[36m
+	[35m.search-icon[36m {
+		flex-shrink: 0;[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(admin)\admin\users\+page.svelte[39m:230:29
+[31mError[39m: Object literal may only specify known properties, and 'children' does not exist in type '$$ComponentProps'. (ts)
+[36m									<td class="cell-email">{teacher.email ?? "—"}</td>
+									<td><Badge variant=[35m[36m"info">{gradeLabel(teacher.grade)}</Badge></td>
+									<td>{teacher.department}</td>[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(admin)\admin\users\+page.svelte[39m:234:26
+[31mError[39m: Object literal may only specify known properties, and 'children' does not exist in type '$$ComponentProps'. (ts)
+[36m									<td>
+										<Badge variant=[35m[36m{availabilityVariant(teacher.availability_status)}>
+											{availabilityLabel(teacher.availability_status)}[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(admin)\admin\users\+page.svelte[39m:280:29
+[31mError[39m: Object literal may only specify known properties, and 'children' does not exist in type '$$ComponentProps'. (ts)
+[36m									<td>{student.specialty}</td>
+									<td><Badge variant=[35m[36m"info">{levelLabel(student.level)}</Badge></td>
+									<td>{student.promotionLabel}</td>[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(admin)\admin\users\+page.svelte[39m:334:26
+[31mError[39m: Object literal may only specify known properties, and 'children' does not exist in type '$$ComponentProps'. (ts)
+[36m									<td>
+										<Badge variant=[35m[36m{companyStatusVariant(company.is_verified)}>
+											{companyStatusLabel(company.is_verified)}[39m
+
+===
+[31msvelte-check found 10 errors and 4 warnings in 4 files
+[39m

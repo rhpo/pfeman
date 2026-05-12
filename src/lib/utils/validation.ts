@@ -217,4 +217,51 @@ export const validation = {
 
     isValidPrescription,
 
+    studentNumber(value: string): Error {
+        if (!/^\d{8,12}$/.test(value.trim())) {
+            return "Student number must be 8-12 digits.";
+        }
+        return "";
+    },
+
+    pfeCode(value: string): Error {
+        if (!/^PFE-\d{2}-[A-Z]+-\d{4}$/.test(value.trim())) {
+            return "PFE code must follow format PFE-XX-SPEC-YEAR.";
+        }
+        return "";
+    },
+
+    algerianPhone(phone: string): Error {
+        const cleaned = phone.replace(/\s/g, '');
+        if (!/^(0|\+213)[5-7]\d{8}$/.test(cleaned)) {
+            return "Enter a valid Algerian phone number (0XXXXXXXXX or +213XXXXXXXXX).";
+        }
+        return "";
+    },
+
+    universityEmail(email: string): Error {
+        const emailErr = validation.email(email);
+        if (emailErr) return emailErr;
+        if (!email.endsWith('.dz')) {
+            return "Must be a .dz university email address.";
+        }
+        return "";
+    },
+
+    grade(value: string): Error {
+        const num = Number(value);
+        if (isNaN(num)) return "Please enter a valid number.";
+        if (num < 0 || num > 20) return "Grade must be between 0 and 20.";
+        return "";
+    },
+
+    url(value: string): Error {
+        if (!value.trim()) return "";
+        try {
+            new URL(value);
+            return "";
+        } catch {
+            return "Please enter a valid URL.";
+        }
+    },
 }

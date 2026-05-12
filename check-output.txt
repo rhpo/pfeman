@@ -1,0 +1,371 @@
+Loading svelte-check in workspace: c:\Users\ramyh\Documents\code\projs\pfe-immature-v3
+Getting Svelte diagnostics...
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\lib\components\ui\DateInput.svelte[39m:267:3
+[33mWarn[39m: Unused CSS selector ".icon"
+https://svelte.dev/e/css_unused_selector (svelte)
+[36m
+  [35m.icon[36m {
+    flex-shrink: 0;[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\lib\components\ui\FormField.svelte[39m:18:3
+[33mWarn[39m: A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control (svelte)
+[36m<div class="field">
+  [35m<label>
+    {label}
+    {#if required}
+      <span class="required">*</span>
+    {/if}
+  </label>[36m
+  {@render children?.()}[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\lib\components\ui\FormField.svelte[39m:91:3
+[33mWarn[39m: Unused CSS selector ".form-grid"
+https://svelte.dev/e/css_unused_selector (svelte)
+[36m
+  [35m.form-grid[36m {
+    display: grid;[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\lib\components\ui\FormField.svelte[39m:97:3
+[33mWarn[39m: Unused CSS selector ".form-actions"
+https://svelte.dev/e/css_unused_selector (svelte)
+[36m
+  [35m.form-actions[36m {
+    display: flex;[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\lib\components\ui\FormField.svelte[39m:105:5
+[33mWarn[39m: Unused CSS selector ".form-grid"
+https://svelte.dev/e/css_unused_selector (svelte)
+[36m  @media (max-width: 600px) {
+    [35m.form-grid[36m {
+      grid-template-columns: 1fr;[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(company)\company\my-subjects\[id]\candidats\+page.svelte[39m:114:17
+[33mWarn[39m: Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events (svelte)
+[36m            {#each wishes as wish}
+                [35m<div
+                    class="student-card"
+                    class:is-selected={selectedIds.includes(wish.student_id)}
+                    onclick={() => toggleSelection(wish.student_id)}
+                    role="button"
+                    tabindex="0"
+                >
+                    <div class="student-checkbox">
+                        {#if selectedIds.includes(wish.student_id)}
+                            <Check size={16} />
+                        {/if}
+                    </div>
+                    <div class="student-info">
+                        <span class="student-name">
+                            {wish.student_name ?? "Etudiant"}
+                        </span>
+                        <span class="student-detail">
+                            {wish.student_specialty ?? "Specialite non renseignee"}
+                        </span>
+                    </div>
+                </div>[36m
+            {/each}[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(company)\company\notifications\+page.svelte[39m:96:17
+[33mWarn[39m: Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events (svelte)
+[36m            {#each notifications as notif}
+                [35m<div
+                    class="notif-card"
+                    class:is-unread={!notif.read_at}
+                    onclick={() => {
+                        if (!notif.read_at) markReadAction(notif.id);
+                    }}
+                    role="button"
+                    tabindex="0"
+                >
+                    <div class="notif-icon">
+                        {#if notif.read_at}
+                            <MailOpen size={16} />
+                        {:else}
+                            <Mail size={16} />
+                        {/if}
+                    </div>
+
+                    <div class="notif-content">
+                        <div class="notif-top">
+                            <Badge
+                                variant={notificationTypeVariant[notif.type] ?? "info"}
+                                label={notificationTypeLabel[notif.type] ?? notif.type}
+                            />
+                            <span class="notif-date">
+                                {new Date(
+                                    notif.created_at,
+                                ).toLocaleDateString("fr-FR", {
+                                    day: "numeric",
+                                    month: "short",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                })}
+                            </span>
+                        </div>
+                        <p class="notif-message">
+                            {notif.message ?? "Notification"}
+                        </p>
+                    </div>
+
+                    {#if !notif.read_at}
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            onclick={(e: Event) => {
+                                e.stopPropagation();
+                                markReadAction(notif.id);
+                            }}
+                        >
+                            <CheckCheck size={14} />
+                        </Button>
+                    {/if}
+                </div>[36m
+            {/each}[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(student)\student\catalogue\+page.svelte[39m:90:17
+[33mWarn[39m: Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events (svelte)
+[36m            {#each filteredSubjects as subject}
+                [35m<div
+                    class="subject-card"
+                    onclick={() => goto(`/student/catalogue/${subject.id}`)}
+                    role="button"
+                    tabindex="0"
+                >
+                    <div class="card-header">
+                        <h3>{subject.title}</h3>
+                        <Badge
+                            variant="info"
+                            label={groupTypeLabel[subject.group_type] ??
+                                subject.group_type}
+                        />
+                    </div>
+
+                    <p class="card-description">
+                        {subject.description.length > 150
+                            ? subject.description.slice(0, 150) + "..."
+                            : subject.description}
+                    </p>
+
+                    <div class="card-meta">
+                        <span class="meta-item">
+                            {#if subject.proposer_role === "company"}
+                                <Building2 size={14} />
+                            {:else}
+                                <Users size={14} />
+                            {/if}
+                            {subject.proposer_name ?? subject.proposer_role}
+                        </span>
+                        <span class="meta-item">
+                            {subject.specialty}
+                        </span>
+                    </div>
+
+                    <div class="card-footer">
+                        <Button variant="ghost" size="sm">
+                            Voir le detail
+                        </Button>
+                    </div>
+                </div>[36m
+            {/each}[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(student)\student\dashboard\+page.svelte[39m:76:9
+[33mWarn[39m: Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events (svelte)
+[36m    <div class="stat-grid">
+        [35m<div
+            class="stat-card"
+            onclick={() => goto("/student/my-pfe")}
+            role="button"
+            tabindex="0"
+        >
+            <div class="stat-icon">
+                <FileText size={20} />
+            </div>
+            <p class="stat-label">Statut PFE</p>
+            <Badge variant={pfeStatusVariant} label={pfeStatusLabel} />
+        </div>[36m[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(student)\student\dashboard\+page.svelte[39m:89:9
+[33mWarn[39m: Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events (svelte)
+[36m
+        [35m<div
+            class="stat-card"
+            onclick={() => goto("/student/voeux")}
+            role="button"
+            tabindex="0"
+        >
+            <div class="stat-icon">
+                <Heart size={20} />
+            </div>
+            <p class="stat-label">Voeux soumis</p>
+            <p class="stat-value">{wishCount}</p>
+        </div>[36m[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(student)\student\dashboard\+page.svelte[39m:103:13
+[33mWarn[39m: Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events (svelte)
+[36m        {#if nextDefense}
+            [35m<div
+                class="stat-card"
+                onclick={() => goto("/student/soutenance")}
+                role="button"
+                tabindex="0"
+            >
+                <div class="stat-icon">
+                    <Calendar size={20} />
+                </div>
+                <p class="stat-label">Prochaine soutenance</p>
+                <div class="defense-info">
+                    <p class="defense-date">{nextDefense.date}</p>
+                    <p class="defense-detail">
+                        {nextDefense.time} &middot; Salle {nextDefense.room}
+                    </p>
+                </div>
+            </div>[36m
+        {/if}[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(student)\student\notifications\+page.svelte[39m:98:17
+[33mWarn[39m: Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events (svelte)
+[36m            {#each notifications as notif}
+                [35m<div
+                    class="notif-card"
+                    class:is-unread={!notif.read_at}
+                    onclick={() => {
+                        if (!notif.read_at) markReadAction(notif.id);
+                    }}
+                    role="button"
+                    tabindex="0"
+                >
+                    <div class="notif-icon">
+                        {#if notif.read_at}
+                            <MailOpen size={16} />
+                        {:else}
+                            <Mail size={16} />
+                        {/if}
+                    </div>
+
+                    <div class="notif-content">
+                        <div class="notif-top">
+                            <Badge
+                                variant={notificationTypeVariant[notif.type] ?? "info"}
+                                label={notificationTypeLabel[notif.type] ?? notif.type}
+                            />
+                            <span class="notif-date">
+                                {new Date(
+                                    notif.created_at,
+                                ).toLocaleDateString("fr-FR", {
+                                    day: "numeric",
+                                    month: "short",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                })}
+                            </span>
+                        </div>
+                        <p class="notif-message">
+                            {notif.message ?? "Notification"}
+                        </p>
+                    </div>
+
+                    {#if !notif.read_at}
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            onclick={(e: Event) => {
+                                e.stopPropagation();
+                                markReadAction(notif.id);
+                            }}
+                        >
+                            <CheckCheck size={14} />
+                        </Button>
+                    {/if}
+                </div>[36m
+            {/each}[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(teacher)\teacher\availability\+page.svelte[39m:184:3
+[33mWarn[39m: Unused CSS selector ".date-input"
+https://svelte.dev/e/css_unused_selector (svelte)
+[36m
+  [35m.date-input[36m {
+    margin-top: var(--spacing-sm);[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(teacher)\teacher\availability\+page.svelte[39m:195:5
+[33mWarn[39m: Unused CSS selector "&:focus"
+https://svelte.dev/e/css_unused_selector (svelte)
+[36m
+    [35m&:focus[36m {
+      outline: none;[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(teacher)\teacher\dashboard\+page.svelte[39m:48:5
+[33mWarn[39m: Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events (svelte)
+[36m  <div class="stat-grid">
+    [35m<div class="stat-card" onclick={() => goto("/teacher/supervised-pfes")} role="button" tabindex="0">
+      <div class="stat-icon">
+        <Users size={20} />
+      </div>
+      <p class="stat-label">Etudiants encadres</p>
+      <p class="stat-value">{supervisedCount}</p>
+    </div>[36m[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(teacher)\teacher\dashboard\+page.svelte[39m:56:5
+[33mWarn[39m: Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events (svelte)
+[36m
+    [35m<div class="stat-card" onclick={() => goto("/teacher/subjects-to-validate")} role="button" tabindex="0">
+      <div class="stat-icon">
+        <CheckCircle size={20} />
+      </div>
+      <p class="stat-label">Sujets a valider</p>
+      <p class="stat-value">{pendingValidationCount}</p>
+    </div>[36m[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(teacher)\teacher\dashboard\+page.svelte[39m:64:5
+[33mWarn[39m: Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events (svelte)
+[36m
+    [35m<div class="stat-card" onclick={() => goto("/teacher/proposed-subjects")} role="button" tabindex="0">
+      <div class="stat-icon">
+        <BookOpen size={20} />
+      </div>
+      <p class="stat-label">Sujets proposes</p>
+      <p class="stat-value">{proposedCount}</p>
+    </div>[36m[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(teacher)\teacher\dashboard\+page.svelte[39m:72:5
+[33mWarn[39m: Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events (svelte)
+[36m
+    [35m<div class="stat-card" onclick={() => goto("/teacher/availability")} role="button" tabindex="0">
+      <div class="stat-icon">
+        <Calendar size={20} />
+      </div>
+      <p class="stat-label">Disponibilite</p>
+      <Badge variant={availabilityVariant} label={availabilityLabel} />
+    </div>[36m
+  </div>[39m
+
+c:\Users\ramyh\Documents\code\projs\pfe-immature-v3\[32msrc\routes\(teacher)\teacher\dashboard\+page.svelte[39m:87:13
+[33mWarn[39m: Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events (svelte)
+[36m          {#each upcomingJuryDuties as duty}
+            [35m<div class="list-item" onclick={() => goto(`/teacher/jury-duties`)} role="button" tabindex="0">
+              <div class="list-item-icon">
+                <Calendar size={16} />
+              </div>
+              <div>
+                <p class="list-item-title">{duty.scheduled_at}</p>
+                <p class="list-item-subtitle">Salle {duty.room}</p>
+              </div>
+            </div>[36m
+          {/each}[39m
+
+====================================
+[33msvelte-check found 0 errors and 19 warnings in 9 files
+[39m

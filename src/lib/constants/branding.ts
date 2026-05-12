@@ -2,6 +2,7 @@ export const BRAND = {
     name: 'PFE',
 
     university: {
-        name: "ESST"
+        name: "ESST",
+        domain: "esst-sup.com"
     }
 }

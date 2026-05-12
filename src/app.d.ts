@@ -1,22 +1,18 @@
-// See https://svelte.dev/docs/kit/types#app.d.ts
-// for information about these interfaces
-
-import type { User } from '$lib/server/auth/types';
+/// <reference types="@sveltejs/kit" />
 
 declare global {
-	namespace App {
-		// interface Error {}
-		interface Locals {
-			/** The authenticated user, or null if not logged in. */
-			user: User | null;
-		}
-		interface PageData {
-			/** The authenticated user, passed from the root layout server load. */
-			user: User | null;
-		}
-		// interface PageState {}
-		// interface Platform {}
-	}
+  namespace App {
+    interface Locals {
+      supabase: import("@supabase/supabase-js").SupabaseClient<
+        import("$lib/types/database").Database
+      >;
+      db: import("$lib/server/repositories/port").IRepositories;
+      user: import("$lib/types/domain").SessionUser | null;
+    }
+    interface PageData {
+      user: import("$lib/types/domain").SessionUser | null;
+    }
+  }
 }
 
-export {};
+export { };

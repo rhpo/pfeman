@@ -5,10 +5,9 @@
   import "aos/dist/aos.css";
 
   import { onMount } from "svelte";
-  import { BRAND } from "$lib/constants/branding";
 
   import favicon from "$lib/assets/favicon.svg";
-  import NavigationBar from "$lib/components/NavigationBar.svelte";
+  import { Toaster } from "svelte-sonner";
 
   let { children } = $props();
 
@@ -18,13 +17,18 @@
 </script>
 
 <svelte:head>
-  <title>
-    {BRAND.name} - Main page
-  </title>
-
   <link rel="icon" href={favicon} />
 </svelte:head>
 
-<NavigationBar />
+<!-- Global toast container — placed once here so every route can trigger toasts -->
+<Toaster
+  theme="dark"
+  richColors
+  position="bottom-right"
+  closeButton
+  toastOptions={{
+    style: "font-family: var(--font-sans, sans-serif); font-size: 0.9rem;",
+  }}
+/>
 
 {@render children()}

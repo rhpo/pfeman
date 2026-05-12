@@ -1,0 +1,155 @@
+Je pense que c'est comme ça
+
+
+
+Demo
+
+Admin configure les 4 deadlines qui a.
+
+Il importe les comptes depuis deux fichier CSV (Etudiants, Enseignants)
+
+
+
+Scenario 1 (entreprise) =====
+
+
+
+Quelqu'un dans une entreprise veut entrer
+
+il crée un compte 
+
+mais Oops, il voit que son entreprise n'existe pas dans l'autocomplete des entreprise lors de la création de son compte (le formulaire)
+
+il demande la création de l'entreprise (nom [il va entrer un nom misspelled pour le modifier apres], domaine (petrolier par exemple juste un simple string), image du logo (upload via Supabase S3 via un bucket qu'on va appeler company-logo), description de l'entreprise, email de l'entreprise, num de tel de lentreprise).
+
+
+
+
+
+
+
+Admin : Recoit une notification d'une nouvelle demande de création d'entreprise
+
+Va dans Accounts -> Company et valide la company
+
+un email s'envoie automatiquement à l'entreprise disant que vous pouvez maintenant créer votre compte!
+
+
+
+lemployé crée son compte (oublie pas que un email de validation s'envoie à cette addresse il input le code et boom c'est fait.) (il va maintenant trouver son entreprise lors de la selection de l'entreprise dans le formulaire de création de compte employé mais il ya un misspell, dans  comment le coriger? ll va dans sa dashboard dans Reports > Demander correction du profil de l'entreprise) 
+
+
+
+
+
+L'admin recoit le rapport dans son panneau Reports
+
+Il va dans accounts > Company > il recherche le nom > Modifier et c'est bon, un email s'envoie à l'adresse auquel le Report a été envoyé disant que c'est fait.
+
+
+
+l'employé propose 1 sujet dans le panneau Sujets, il remplit titre, description, type de groupe (monome, binome, trinome), domaine (j'ai attaché une photo - c'est un nouveau concept, parce qu'on peut pas choisir par spécialité (comme ISIL, CHIM, ELEC), mais plutot par domaine).
+
+
+
+l'admin recoit une notification d'une nouvelle soumission de PFE alors il va dans Sujets > (Le PFE concerné ) > Assigner Validateurs, un modal s'ouvre avec le systeme de recommendation des profs auquels leur domaine (les profs actuellement en conception n'ont pas de domaine btw, faut l'ajouter a la conception, il peuvent avoir un ou plusieurs domaines), est la plus proche (on va dire egale) a celle du PFE. 
+
+
+
+Puis apres assignation de validation avec Prof X et Y:
+
+les deux recoivent une notification (Dashboard Enseignant dans le panneau Sujets à Valider - attached image so you can understand) il clique Examiner (ca ouvre /teacher/subjects-to-validate/[id-du-sujet]) il peut choisir soit accepter, accepter sous reserve (la note du reserve), refuser) apres Soumettre decision.
+
+
+
+le sujet sera validé sous ces deux conditions:
+
+if at least one if them refused -> Admin recieves notification and at this time he has the possibility to do an Assign validators again or Remove).
+
+if one validated and one validated with reserve -> the sujet becomes accepté sous reserve, the sujet issuer (encadrant externe de l'entreprise (or later we will talk about the case where an internal encadrant will do what the company guy did) and the internal encadrant).
+
+if both validated -> Sujet Validé (and can now be displayed for students to choose from).
+
+
+
+Student connects with Google, he goes to Catalogue (attached image), clicks "Voir le détail", sees the sujet information we've talked about earlier, clicks Ajouter à mes voeux. le veux va apparaitre dans l'onglet Mes Voeux (il a un max de 10 voeux).
+
+
+
+many students selects des voeux, maybe a single pfe sujet can have 10 or anything interested students, 
+
+
+
+GENERALLY after that (if the pfe was intern) the subject issuer goes to My Sujets, Voir Postulants, selects 1 or 2 depending on the group type, and the rest will be removed from the list and even in their wishlist the subject will dissapear.
+
+
+
+but it's an External Encadrant, he can't choose students based on just the name, so who will choose the students for him? the Admin, he goes to Sujets and Filters by Entreprise, in the same way there is an action called Assign Validators that we saw later, there is Assign Students. Same job.
+
+ 
+
+It happens that the encadrant (externe/interne) may have talked earlier with the company/teacher, so in the Proposition de sujet PFE, you can optionally select the concerned students and they will be attached to it, it won't even appear for other students. (even before subject validation they will be assigned).
+
+
+
+IMPORTANT NOTE: the website MUST NOT have irreversible actions, imagine a teacher assigned a subject he proposed to a student then they didn't get  get along, we must ALWAYS when we do an action we do it's reversible action. 
+
+
+
+ALSO we send a notification on each single action. Example here when the teacher assigned a student and the others not.
+
+
+
+After that.
+
+when all students have their PFE's it'll appear in Mon PFE. it's at this moment that the pfe will have his code assigned (idk if you remember it).
+
+
+
+now what? when he goes to Mon PFE. he is supposed to find Meetings, he clicks on it and fills a  meeting. I'll attach it to you. (this is what it have).
+
+
+
+FINALLY WHATTT??
+
+he submits his memoire, the teacher and admin gets notified.
+
+
+
+THEN WHAATTT??
+
+the admin can from here go to Soutenances > Plannifier une soutenance
+
+here he will select the PFE (a modal opens up : it 
+
+
+
+Available "Parametrable" Deadlines ===
+
+Fin de proposition de sujets
+
+Debut de remise des sujets ( when the sujet issuer can start accepting students in his pfe subject)
+
+Remise des sujets (fin)
+
+Deadline de validation (je sais pas de quoi)
+
+Deadline remise des memoires (upload pdf) - Mon PFE > Soumettre Mémoire (if exceeded deadline button greyed out with a tippy of "Date dépasée, vous ne pouvez plus soumettre votre Mémoire.")
+
+
+
+Apres l'admin va a un onglet PFE qu'on va créer, ça va afficher une table affichant le combo dont on a parlé et c'est tout
+
+
+
+donne moi le prompt fresh pour la nouvelle IA stp
+
+
+
+Deadlines that concerns each pfe individually (not parametrable but assignable). ===
+
+Deadline soutenance  (it's obvious that when the concerned student doesn't attend ofc it's a deadline but I had to mention it anyway)
+
+
+
+Au tant que jurys (voulez vous imprimer la version papier? Checkbox)

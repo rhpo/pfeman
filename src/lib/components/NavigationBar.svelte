@@ -58,6 +58,9 @@
         <div class="theme">
           <ThemeToggle />
         </div>
+
+        <!-- display user data. -->
+        <!-- {#if } -->
       </div>
 
       <div class="hamburger">

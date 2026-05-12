@@ -1,0 +1,19 @@
+src/lib/server/repositories/impl/drizzle/specialities.ts(12,5): error TS2322: Type '{ id: string; created_at: string; name: string; code: string; year_type: "licence" | "master" | "ingenieur"; }[]' is not assignable to type 'SpecialityRow[]'.
+  Type '{ id: string; created_at: string; name: string; code: string; year_type: "licence" | "master" | "ingenieur"; }' is not assignable to type 'SpecialityRow'.
+    Types of property 'year_type' are incompatible.
+      Type '"licence" | "master" | "ingenieur"' is not assignable to type 'YearType'.
+        Type '"ingenieur"' is not assignable to type 'YearType'.
+src/lib/server/repositories/impl/drizzle/specialities.ts(21,5): error TS2322: Type '{ id: string; created_at: string; name: string; code: string; year_type: "licence" | "master" | "ingenieur"; } | null' is not assignable to type 'SpecialityRow | null'.
+  Type '{ id: string; created_at: string; name: string; code: string; year_type: "licence" | "master" | "ingenieur"; }' is not assignable to type 'SpecialityRow'.
+    Types of property 'year_type' are incompatible.
+      Type '"licence" | "master" | "ingenieur"' is not assignable to type 'YearType'.
+        Type '"ingenieur"' is not assignable to type 'YearType'.
+src/lib/server/repositories/impl/drizzle/specialities.ts(25,5): error TS2322: Type '{ id: string; created_at: string; name: string; code: string; year_type: "licence" | "master" | "ingenieur"; }[]' is not assignable to type 'SpecialityRow[]'.
+  Type '{ id: string; created_at: string; name: string; code: string; year_type: "licence" | "master" | "ingenieur"; }' is not assignable to type 'SpecialityRow'.
+    Types of property 'year_type' are incompatible.
+      Type '"licence" | "master" | "ingenieur"' is not assignable to type 'YearType'.
+        Type '"ingenieur"' is not assignable to type 'YearType'.
+src/lib/server/repositories/impl/drizzle/specialities.ts(37,5): error TS2322: Type '{ id: string; created_at: string; name: string; code: string; year_type: "licence" | "master" | "ingenieur"; }' is not assignable to type 'SpecialityRow'.
+  Types of property 'year_type' are incompatible.
+    Type '"licence" | "master" | "ingenieur"' is not assignable to type 'YearType'.
+      Type '"ingenieur"' is not assignable to type 'YearType'.

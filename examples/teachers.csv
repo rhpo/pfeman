@@ -1,0 +1,8 @@
+email,grade,department,availability_status,unavailable_until
+karim.merzouk@univ.dz,professeur,Informatique,disponible,
+nadia.ouali@univ.dz,mca,Informatique,disponible,
+hakim.zeddoun@univ.dz,maa,Reseaux et Telecom,disponible,
+salima.boudiaf@univ.dz,mcb,Genie Logiciel,indisponible_jusqu_au,2026-09-01
+rachid.benmoussa@univ.dz,mab,Mathematiques,disponible,
+amina.toumi@univ.dz,professeur,Electronique,disponible,
+yacine.ferhat@univ.dz,assistant,Informatique,indisponible_jusqu_au,2026-06-15

@@ -1,0 +1,52 @@
+# PROJET PFE - SUIVI DE PROGRESSION
+
+## PHASE 1 - Schema et base de données [DONE]
+- [DONE] src/lib/server/db/schema.ts : supervisor_evaluations, company_reports, pfe_code, memoire_url, co_supervisor_id FK corrigé
+- [DONE] pnpm db:push : schema synchronisé
+- [DONE] src/lib/server/repositories/port.ts : nouvelles interfaces
+- [DONE] src/lib/server/repositories/impl/drizzle/* : implémentations Drizzle
+- [DONE] src/lib/server/repositories/impl/supabase/* : implémentations Supabase
+- [DONE] src/lib/server/repositories/factory.ts : instanciation conditionnelle
+- [DONE] src/lib/server/db/seed.ts : 8 domaines + teacher_domains + subject_domains
+- [DONE] pnpm db:seed
+
+## PHASE 2 - Use-cases manquants [DONE]
+- [DONE] src/lib/server/use-cases/shared/send-notification.ts
+- [DONE] src/lib/server/use-cases/admin/manage-company-report.ts
+- [DONE] src/lib/server/use-cases/admin/assign-co-supervisor.ts
+- [DONE] src/lib/server/use-cases/teacher/submit-supervisor-evaluation.ts
+- [DONE] src/lib/server/use-cases/company/submit-supervisor-evaluation.ts
+- [DONE] src/lib/server/use-cases/company/submit-report.ts
+- [DONE] src/lib/server/use-cases/student/upload-memoire.ts
+
+## PHASE 3 - API endpoints [DONE]
+- [DONE] src/routes/api/companies/validate/+server.ts
+- [DONE] src/routes/api/companies/[id]/update/+server.ts
+- [DONE] src/routes/api/reports/create/+server.ts
+- [DONE] src/routes/api/reports/[id]/resolve/+server.ts
+- [DONE] src/routes/api/subjects/assign-co-supervisor/+server.ts
+- [DONE] src/routes/api/evaluations/supervisor/submit/+server.ts
+- [DONE] src/routes/api/jury/confirm/+server.ts
+- [DONE] src/routes/api/jury/decline/+server.ts
+- [DONE] src/routes/api/pfe/upload-memoire/+server.ts
+
+## PHASE 4 - Pages manquantes [DONE]
+- [DONE] /(admin)/admin/accounts/company/+page.svelte + +page.server.ts
+- [DONE] /(admin)/admin/reports/+page.svelte + +page.server.ts
+- [DONE] /(admin)/admin/pfe/+page.svelte + +page.server.ts
+- [DONE] /(admin)/admin/settings/+page.svelte + +page.server.ts
+- [DONE] /(company)/company/reports/+page.svelte + +page.server.ts
+- [DONE] /(student)/student/my-pfe/memoire/+page.svelte + +page.server.ts
+- [DONE] /(student)/student/my-pfe/meetings/+page.svelte + +page.server.ts
+- [DONE] /(teacher)/teacher/supervised-pfes/[id] - evaluation section
+- [DONE] /(company)/company/supervised-pfes/[id] - evaluation section
+- [DONE] /(admin)/admin/defenses/[id] - intégrer critère 5 encadrant
+
+## PHASE 5 - Corrections et refactoring [IN PROGRESS]
+- [IN PROGRESS] Recherche et correction des variables CSS inexistantes
+- [TODO] Correction des $derived(() => {...}) → $derived.by(() => {...})
+- [TODO] npx tsc --noEmit → 0 erreur
+- [TODO] npx svelte-check → 0 erreur
+- [TODO] Vérification finale
+
+## PHASE 6 - Seed final [TODO]

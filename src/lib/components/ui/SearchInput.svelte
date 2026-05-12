@@ -2,7 +2,7 @@
 	import { Search } from 'lucide-svelte';
 
 	let {
-		placeholder = 'Rechercher un livre...',
+		placeholder = 'Rechercher...',
 		onSearch = () => {},
 		value = $bindable(''),
 		searchInput = $bindable()
@@ -11,7 +11,7 @@
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-<main onclick={() => searchInput.focus()}>
+<main onclick={() => searchInput?.focus()}>
 	<input
 		type="text"
 		{placeholder}
@@ -30,28 +30,15 @@
 </main>
 
 <style>
-	:root {
-		--padding-search: 2rem;
-	}
-
-	:global(html[data-rtl='true']) main input {
-		padding-right: var(--padding-search);
-		padding-left: 0;
-	}
-
 	main {
 		width: 100%;
 		max-width: 56rem;
 		display: inline-flex;
 		align-items: center;
-
-		background-color: var(--background-secondary);
-
+		background-color: var(--color-background-100);
 		border-radius: 50px;
 		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-
 		cursor: text;
-
 		height: 100%;
 	}
 
@@ -59,8 +46,12 @@
 		flex: 1;
 		height: 100%;
 		width: 100%;
-		padding-left: var(--padding-search);
+		padding-left: 2rem;
 		font-size: 1.2rem;
+		background: transparent;
+		border: none;
+		color: var(--color-text);
+		font-family: var(--font-sans);
 	}
 
 	main input:focus {
@@ -68,22 +59,22 @@
 	}
 
 	main input::placeholder {
-		font-family: var(--font-serif);
+		font-family: var(--font-sans);
 		font-style: italic;
+		color: var(--color-text-muted);
 	}
 
 	button {
-		background-color: var(--primary);
-		color: var(--white);
+		background-color: var(--color-accent);
+		color: var(--color-background);
+		border: none;
 		border-radius: 50%;
-		padding: calc(var(--padding-search) / 2);
-		margin: calc(var(--padding-search) / 4);
-
+		padding: 0.75rem;
+		margin: 0.25rem;
 		display: grid;
 		place-items: center;
 		cursor: pointer;
-
-		transition: all var(--transition-duration) var(--transition-easing);
+		transition: all var(--transition-normal);
 	}
 
 	button:hover {
@@ -91,11 +82,8 @@
 	}
 
 	@media screen and (max-width: 600px) {
-		:root {
-			--padding-search: 1rem;
-		}
-
 		main input {
+			padding-left: 1rem;
 			font-size: 0.875rem;
 		}
 	}

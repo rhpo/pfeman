@@ -21,3 +21,11 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Drizzle — local dev SQLite file (not for version control)
+/dev.db
+/dev.db-shm
+/dev.db-wal
+
+# Drizzle-generated migrations — commit these if you use db:generate
+# /drizzle

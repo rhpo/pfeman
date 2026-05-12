@@ -130,14 +130,14 @@
     transition: all var(--transition-normal);
     background: transparent;
     font-family: var(--font-sans);
-    color: var(--text-primary);
+    color: var(--color-text);
     border-radius: 1rem;
     background-color: var(--color-background-100);
     border: 1px solid var(--color-background-200);
 
     &:focus {
       outline: none;
-      border-bottom-color: var(--text-primary);
+      border-bottom-color: var(--color-text);
     }
 
     &::placeholder {

@@ -101,12 +101,10 @@
     max-height: calc(100vh - 48px);
     display: flex;
     flex-direction: column;
-    background: #1c1c20;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 16px;
-    box-shadow:
-      0 24px 48px rgba(0, 0, 0, 0.4),
-      0 0 0 1px rgba(255, 255, 255, 0.04);
+    box-shadow: var(--shadow-popover);
     overflow: hidden;
   }
 
@@ -116,7 +114,7 @@
     justify-content: space-between;
     gap: 16px;
     padding: 20px 24px 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--color-border);
     flex-shrink: 0;
   }
 
@@ -130,14 +128,14 @@
     margin: 0;
     font-size: 16px;
     font-weight: 700;
-    color: #f4f4f5;
+    color: var(--color-text);
     letter-spacing: -0.01em;
   }
 
   .modal-description {
     margin: 0;
     font-size: 12px;
-    color: #71717a;
+    color: var(--color-text-muted);
     line-height: 1.4;
   }
 
@@ -148,16 +146,16 @@
     width: 28px;
     height: 28px;
     border: none;
-    background: rgba(255, 255, 255, 0.06);
-    color: #a1a1aa;
+    background: var(--color-background-100);
+    color: var(--color-text-muted);
     border-radius: 8px;
     cursor: pointer;
     flex-shrink: 0;
     transition: all 0.15s ease;
   }
   .modal-close:hover {
-    background: rgba(255, 255, 255, 0.12);
-    color: #f4f4f5;
+    background: var(--color-background-200);
+    color: var(--color-text);
   }
 
   .modal-body {
@@ -167,7 +165,7 @@
 
     /* Custom scrollbar */
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+    scrollbar-color: var(--color-border) transparent;
   }
   .modal-body::-webkit-scrollbar {
     width: 6px;
@@ -176,10 +174,10 @@
     background: transparent;
   }
   .modal-body::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--color-border);
     border-radius: 3px;
   }
   .modal-body::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--color-border-strong);
   }
 </style>
